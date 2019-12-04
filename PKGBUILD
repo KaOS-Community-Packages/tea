@@ -1,5 +1,5 @@
 pkgname=tea
-pkgver=49.0.0
+pkgver=50.0.1
 pkgrel=1
 pkgdesc="A Qt-based text editor for Linux and *BSD. With an ultimate small size TEA provides you hundreds of functions."
 arch=('x86_64')
@@ -8,10 +8,8 @@ license=('GPL')
 depends=('qt5-base' 'poppler-qt5' 'djvulibre' 'zlib')
 makedepends=('clang')
 optdepends=('aspell' 'hunspell')
-source=("https://github.com/psemiletov/tea-qt/archive/${pkgver}.tar.gz"
-        "tea.desktop")
-md5sums=('57b14ce4e400103bfe0683703a1d304a'
-         '377ace3363124f4c086de0babb820761')
+source=("https://github.com/psemiletov/tea-qt/archive/${pkgver}.tar.gz")
+md5sums=('6d2e2c92c53a2162a1609975cbe29acb')
 
 build() {
   cd "${srcdir}/${pkgname}-qt-${pkgver}"
@@ -24,6 +22,4 @@ build() {
 package(){
   cd "${srcdir}/${pkgname}-qt-${pkgver}"
   make INSTALL_ROOT="${pkgdir}" install
-  install -Dm644 "${srcdir}/tea.desktop" "${pkgdir}/usr/share/applications/tea.desktop"
-  install -Dm644 icons/tea_icon_v2.png "${pkgdir}/usr/share/pixmaps/tea.png"
 }
