@@ -1,25 +1,29 @@
 pkgname=tea
-pkgver=50.1.0
+pkgver=60.0.0
 pkgrel=1
 pkgdesc="A Qt-based text editor for Linux and *BSD. With an ultimate small size TEA provides you hundreds of functions."
 arch=('x86_64')
 url="http://tea.ourproject.org/"
 license=('GPL')
-depends=('qt5-base' 'poppler-qt5' 'djvulibre' 'zlib')
-makedepends=('clang')
-optdepends=('aspell' 'hunspell')
+depends=('qt6-base' 'qt6-5compat' 'poppler' 'djvulibre' 'zlib' 'aspell' 'hunspell')
 source=("https://github.com/psemiletov/tea-qt/archive/${pkgver}.tar.gz")
-md5sums=('a59cbec5ee60c05e44ada9d8ae1fe4fc')
+md5sums=('073dc9d3bec6411d3039d892ed9acf52')
 
 build() {
-  cd "${srcdir}/${pkgname}-qt-${pkgver}"
-  qmake-qt5 PREFIX=/usr \
-            CONFIG+=usepoppler \
-            CONFIG+=usedjvu
-  make
+	cd "${srcdir}/${pkgname}-qt-${pkgver}"
+	mkdir -p build
+	cd build
+	cmake .. \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_PREFIX_PATH=/usr/lib/qt6 \
+		-DUSE_ASPELL=ON \
+		-DUSE_PRINTER=ON \
+		-DUSE_PDF=ON \
+		-DUSE_DJVU=ON
+	make
 }
 
 package(){
-  cd "${srcdir}/${pkgname}-qt-${pkgver}"
-  make INSTALL_ROOT="${pkgdir}" install
+	cd "${srcdir}/${pkgname}-qt-${pkgver}/build"
+	make DESTDIR="${pkgdir}" install
 }
