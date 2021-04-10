@@ -1,5 +1,5 @@
 pkgname=tea
-pkgver=60.0.0
+pkgver=60.0.2
 pkgrel=1
 pkgdesc="A Qt-based text editor for Linux and *BSD. With an ultimate small size TEA provides you hundreds of functions."
 arch=('x86_64')
@@ -7,7 +7,7 @@ url="http://tea.ourproject.org/"
 license=('GPL')
 depends=('qt6-base' 'qt6-5compat' 'poppler' 'djvulibre' 'zlib' 'aspell' 'hunspell')
 source=("https://github.com/psemiletov/tea-qt/archive/${pkgver}.tar.gz")
-md5sums=('073dc9d3bec6411d3039d892ed9acf52')
+md5sums=('457177c7591319ba49cc91129cc5a656')
 
 build() {
 	cd "${srcdir}/${pkgname}-qt-${pkgver}"
